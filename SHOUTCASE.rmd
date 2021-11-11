@@ -10,3 +10,11 @@ knitr::opts_chunk$set(echo = TRUE)
 library("readxl")
 library("tidyverse")
 ```
+
+
+```{r}
+
+tb <- read_xlsx(".\\data\\data.xlsx", skip = 2)
+
+```
+
