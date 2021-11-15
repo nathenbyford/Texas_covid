@@ -21,3 +21,4 @@ dat_2 <- tb |>
   
 
 head(dat_2)
+dim(dat_2)
