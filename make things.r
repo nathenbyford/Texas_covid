@@ -2,6 +2,13 @@ library("readxl")
 library("lubridate")
 library("tidyverse")
 library("bbplot")
+theme_set(
+theme_bw() +
+  theme(panel.grid.minor.x = element_blank(),
+        axis.title.y = element_text(angle = 0, vjust = .5)
+      )
+  )
+
 
 tb <- read_xlsx(".\\data\\data.xlsx", skip = 2)
 
