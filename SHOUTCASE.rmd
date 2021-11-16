@@ -9,12 +9,57 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 library("readxl")
 library("tidyverse")
+library("lubridate")
+theme_set(
+  theme_bw() +
+  theme(panel.grid.minor.x = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.title.y = element_text(angle = 0, vjust = .5),
+        plot.title = element_text(face = "bold"),
+        legend.text = element_text(size = 8)
+      )
+  )
 ```
 
+# Part 1: Data manipulation
 
 ```{r}
-
 tb <- read_xlsx(".\\data\\data.xlsx", skip = 2)
 
+cases <- tb |> 
+  rename(county = "County Name") |> 
+  gather(-1, key = "date", value = "cases") |> 
+  mutate(date = str_extract(date, "[0-9]{2}-[0-9]{2}-[0-9]{4}"),
+         date = mdy(date))
+
+cases
+```
+
+# Part 2: Data merging
+
+```{r}
+pop_dat <- read_csv(".\\data/county-populations.csv")
+
+cases <- left_join(cases, pop_dat)
+
+cases
+```
+
+# part 3: Data visualization
+
+```{r, fig.align='center', fig.height=4}
+## Find top 16 counties.
+top_count <- tail(pop_dat[order(pop_dat$population), ], n = 17) |> pull(county)
+
+cases |> filter(county %in% top_count, county != "Total") |> 
+  ggplot(aes(x = date, y = cases, group = county)) +
+  geom_line(aes(color = county), size = 1, alpha = .6) +
+  scale_y_continuous(labels = scales::comma) +
+  scale_color_viridis_d() +
+  labs(title = "Incident Cases", 
+       subtitle = "For 16 Largest Counties in Texas",
+       y = "Cases",
+       x = "Date")
 ```
 
