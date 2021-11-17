@@ -8,14 +8,15 @@ output: pdf_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library("readxl")
-library("tidyverse")
 library("lubridate")
+library("slider")
+library("tidyverse")
 theme_set(
     theme_classic() +
         theme(panel.grid.major.y = element_line(),
-               axis.title.y = element_text(angle = 0, vjust = .5),
-               plot.title = element_text(face = "bold"),
-               legend.text = element_text(size = 8)
+              axis.title.y = element_text(angle = 0, vjust = .5),
+              plot.title = element_text(face = "bold"),
+              legend.text = element_text(size = 8)
               )
         )
 ```
@@ -51,7 +52,9 @@ cases
 top_count <- tail(pop_dat[order(pop_dat$population), ], n = 17) |> pull(county)
 
 cases |> filter(county %in% top_count, county != "Total") |> 
-  ggplot(aes(x = date, y = cases, group = county)) +
+  group_by(county) |> 
+  mutate(new_cases = c(cases[1], diff(cases))) |> 
+  ggplot(aes(x = date, y = new_cases, group = county)) +
   geom_line(aes(color = county), size = 1, alpha = .6) +
   scale_y_continuous(labels = scales::comma) +
   scale_color_viridis_d() +
