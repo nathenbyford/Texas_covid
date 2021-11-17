@@ -65,6 +65,7 @@ cases |> filter(county %in% top_count, county != "Total") |>
        x = "Date")
 ```
 
+# Part 4: Facet Graphics
 
 ```{r}
 cases |> filter(county %in% top_count, county != "Total") |> 
@@ -86,8 +87,7 @@ cases |> filter(county %in% top_count, county != "Total") |>
 
 ```
 
-#Part 5
-
+#Part 5: Cases per 10k
 
 ```{r}
 cases |> filter(county %in% top_count, county != "Total") |> 
