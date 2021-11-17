@@ -56,7 +56,7 @@ cases |> filter(county %in% top_count, county != "Total") |>
   mutate(new_cases = c(cases[1], diff(cases)),
          new_cases = slide_dbl(new_cases, mean, .before = 6)) |> 
   ggplot(aes(x = date, y = new_cases, group = county)) +
-  geom_line(aes(color = county), alpha = .6) +
+  geom_line(aes(color = county), size = .7, alpha = .6) +
   scale_y_continuous(labels = scales::comma, limits = c(0, NA)) +
   scale_color_viridis_d() +
   labs(title = "Incident Cases", 
