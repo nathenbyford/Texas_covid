@@ -76,7 +76,7 @@ cases |> filter(county %in% top_count, county != "Total") |>
   scale_y_continuous(labels = scales::comma, limits = c(0,NA)) +
   labs(title = "Incident Cases", 
        subtitle = "For 16 Largest Counties in Texas", 
-       x = "Date (Year-Month)",
+       x = "Date",
        y = "New Cases") +
   theme(legend.position = "none", 
         axis.text.x = element_text(angle = 30, vjust = 1, hjust = 1),
