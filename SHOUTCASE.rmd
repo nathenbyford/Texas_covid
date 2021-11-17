@@ -87,7 +87,7 @@ cases |> filter(county %in% top_count, county != "Total") |>
 
 ```
 
-#Part 5: Cases per 10k
+# Part 5: Cases per 10k
 
 ```{r}
 cases |> filter(county %in% top_count, county != "Total") |> 
