@@ -37,7 +37,6 @@ part_2 |> filter(county %in% top_count) |>
   ggplot(aes(x = date, y = cases, group = county)) +
   geom_line(aes(color = county), size = 1, alpha = .5) +
   scale_color_viridis_d() +
-  bbc_style() +
   labs(title = "Incident Cases", 
        subtitle = "For 16 Largest Counties in Texas", 
        x = "Date",
