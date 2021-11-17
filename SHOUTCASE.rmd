@@ -1,6 +1,6 @@
 ---
-title: "Texas Covid"
-author: "Nathen Byford"
+title: "Texas Covid Data Project"
+author: "Nathen Byford, Connor Bryson, Miguel Iglesias"
 date: "11/11/2021"
 output: pdf_document
 ---
@@ -11,15 +11,13 @@ library("readxl")
 library("tidyverse")
 library("lubridate")
 theme_set(
-  theme_bw() +
-  theme(panel.grid.minor.x = element_blank(),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.title.y = element_text(angle = 0, vjust = .5),
-        plot.title = element_text(face = "bold"),
-        legend.text = element_text(size = 8)
-      )
-  )
+    theme_classic() +
+        theme(panel.grid.major.y = element_line(),
+               axis.title.y = element_text(angle = 0, vjust = .5),
+               plot.title = element_text(face = "bold"),
+               legend.text = element_text(size = 8)
+              )
+        )
 ```
 
 # Part 1: Data manipulation
@@ -49,7 +47,7 @@ cases
 # part 3: Data visualization
 
 ```{r, fig.align='center', fig.height=4}
-## Find top 16 counties.
+# Find top 16 counties, and total.
 top_count <- tail(pop_dat[order(pop_dat$population), ], n = 17) |> pull(county)
 
 cases |> filter(county %in% top_count, county != "Total") |> 
