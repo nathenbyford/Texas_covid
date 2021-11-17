@@ -64,3 +64,21 @@ cases |> filter(county %in% top_count, county != "Total") |>
        x = "Date")
 ```
 
+
+```{r}
+cases |> filter(county %in% top_count, county != "Total") |> 
+  group_by(county) |> 
+  mutate(new_cases = c(cases[1], diff(cases))) |> 
+  ggplot(aes(x = date, y = new_cases, group = county)) +
+  geom_line(aes(color = county), size = 1, alpha = .6) +
+  scale_y_continuous(labels = scales::comma) +
+  scale_color_viridis_d() +
+  labs(title = "Incident Cases", 
+       subtitle = "For 16 Largest Counties in Texas", 
+       x = "Date (Year-Month)",
+       y = "New Cases") +
+  theme(legend.position = "none", 
+        axis.text.x = element_text(angle = 30, vjust = 1, hjust = 1))+
+  facet_wrap(~county, nrow = 4)
+```
+
