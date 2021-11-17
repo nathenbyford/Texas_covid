@@ -53,10 +53,11 @@ top_count <- tail(pop_dat[order(pop_dat$population), ], n = 17) |> pull(county)
 
 cases |> filter(county %in% top_count, county != "Total") |> 
   group_by(county) |> 
-  mutate(new_cases = c(cases[1], diff(cases))) |> 
+  mutate(new_cases = c(cases[1], diff(cases)),
+         new_cases = slide_dbl(new_cases, mean, .before = 6)) |> 
   ggplot(aes(x = date, y = new_cases, group = county)) +
-  geom_line(aes(color = county), size = 1, alpha = .6) +
-  scale_y_continuous(labels = scales::comma) +
+  geom_line(aes(color = county), alpha = .6) +
+  scale_y_continuous(labels = scales::comma, limits = c(0, NA)) +
   scale_color_viridis_d() +
   labs(title = "Incident Cases", 
        subtitle = "For 16 Largest Counties in Texas",
