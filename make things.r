@@ -2,6 +2,13 @@ library("readxl")
 library("lubridate")
 library("tidyverse")
 library("bbplot")
+theme_set(
+theme_bw() +
+  theme(panel.grid.minor.x = element_blank(),
+        axis.title.y = element_text(angle = 0, vjust = .5)
+      )
+  )
+
 
 tb <- read_xlsx(".\\data\\data.xlsx", skip = 2)
 
@@ -30,7 +37,6 @@ part_2 |> filter(county %in% top_count) |>
   ggplot(aes(x = date, y = cases, group = county)) +
   geom_line(aes(color = county), size = 1, alpha = .5) +
   scale_color_viridis_d() +
-  bbc_style() +
   labs(title = "Incident Cases", 
        subtitle = "For 16 Largest Counties in Texas", 
        x = "Date",
