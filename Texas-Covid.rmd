@@ -3,7 +3,7 @@ title: "Texas Covid Data Project"
 subtitle: "Codename: SHOUTCASE"
 author: 
   - Connor Bryson
-  - Nathen Byford^[Baylor University, nathen_byford1@baylor.edu]
+  - Nathen Byford
   - Miguel Iglesias
 date: "11/11/2021"
 output: pdf_document
