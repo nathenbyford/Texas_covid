@@ -1,6 +1,10 @@
 ---
 title: "Texas Covid Data Project"
-author: "Nathen Byford, Connor Bryson, Miguel Iglesias"
+subtitle: "Codename: SHOUTCASE"
+author: 
+  - Connor Bryson
+  - Nathen Byford
+  - Miguel Iglesias
 date: "11/11/2021"
 output: pdf_document
 ---

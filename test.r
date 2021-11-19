@@ -1,7 +1,6 @@
 library("readxl")
 library("lubridate")
 library("tidyverse")
-library("bbplot")
 theme_set(
 theme_bw() +
   theme(panel.grid.minor.x = element_blank(),
@@ -30,29 +29,18 @@ pop_dat <- read_csv(".\\data/county-populations.csv")
 part_2 <- left_join(dat_2, pop_dat)
 
 ## Find top 16 counties.
-top_count <- tail(pop_dat[order(pop_dat$population), ], n = 17) |> pull(county)
+top_count <- tail(pop_dat[order(population), ], n = 17) |> pull(county)
 
 part_2 |> filter(county %in% top_count) |> 
   filter(county != "Total") |> 
+  mutate(new_cases = )
   ggplot(aes(x = date, y = cases, group = county)) +
   geom_line(aes(color = county), size = 1, alpha = .5) +
   scale_color_viridis_d() +
+  bbc_style() +
   labs(title = "Incident Cases", 
        subtitle = "For 16 Largest Counties in Texas", 
        x = "Date",
        y = "New Cases")
-
-part_2 |> filter(county %in% top_count) |> 
-  filter(county != "Total") |> 
-  ggplot(aes(x = date, y = cases, group = county)) +
-  geom_line(aes(color = county), size = 1, alpha = .5) +
-  scale_color_viridis_d() +
-  labs(title = "Incident Cases", 
-       subtitle = "For 16 Largest Counties in Texas", 
-       x = "Date (Year-Month)",
-       y = "New Cases") +
-  theme(legend.position = "none", 
-        axis.text.x = element_text(angle = 30, vjust = 1, hjust = 1))+
-  facet_wrap(~county, nrow = 4)
 
 
